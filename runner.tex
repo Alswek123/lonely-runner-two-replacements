@@ -1,0 +1,346 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{hidelinks,pdftitle={How fast can two replacement lonely runners be?}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\LR}{\operatorname{LR}}
+\newcommand{\dist}[1]{\lVert #1\rVert}
+\newcommand{\bad}{\mathcal B}
+\newcommand{\good}{\mathcal U}
+\setlength{\parskip}{2pt}
+\title{\bfseries How fast can two replacement lonely runners be?}
+\author{}
+\date{\small Research draft \quad 26 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Replace two distinct entries of $1,\ldots,n-1$ by integers $n\le u<w$.
+If the resulting configuration is tight, we prove
+$u=O(n\log\log n)$ and $w=O(n\log n)$. The order of the first
+bound is attained along an infinite sequence. The second bound answers
+the two-entry case of Zhang's Question 8.2. Simultaneous gaps in coprime
+residues force a common primorial divisor. Testing several rational times
+for each deletion then forces divisibility if $w$ is too large.
+An exact search with no
+prescribed limit on the inserted speeds finds three tight configurations
+for $8\le n\le300$, all previously exhibited or predicted.
+\end{abstract}
+
+\section{The problem and the bounds}
+On a circle of circumference one let $\dist{x}$ denote the distance to
+the nearest integer. For a finite set of positive speeds $V$, put
+$\LR(V)=\max_{t\in[0,1]}\min_{v\in V}\dist{vt}$. The lonely runner
+conjecture predicts $\LR(V)\ge1/n$ for $n-1$ distinct positive integer
+speeds. The standard set $[n-1]=\{1,\ldots,n-1\}$ attains equality.
+We call equality \emph{tightness} and throughout set
+\[
+ R=\{r_1,r_2\}\subset[n-1],\qquad
+ V=([n-1]\setminus R)\cup\{u,w\},\qquad n\le u<w.
+\]
+Zhang~\cite[Questions 8.1--8.2]{Z} asks for a classification and a
+polynomial, or $O(n\log n)$, bound on the largest inserted speed.
+
+\begin{theorem}\label{thm:main}
+If $n\ge15$ and $\LR(V)\le1/n$, then
+\[
+ u\le\frac{4n(n-1)^2}{n-4},\qquad w\le2(n-1)u.
+\]
+As $n\to\infty$, uniformly over such configurations,
+$u\le(4+o(1))\,n\log\log n$ and $w=O(n\log n)$. Along an infinite sequence of tight
+configurations, $u=(\tfrac12+o(1))\,n\log\log n$. All logarithms are natural.
+\end{theorem}
+
+The explicit inequalities give a finite search for each $n\ge15$.
+The optimal growth of $w$ and the two-entry classification for all $n$
+remain open. We also check $8\le n<15$ directly. Fixing two changes
+matters here. If every entry may be changed and common dilations are
+allowed, $k[n-1]$ is tight for arbitrarily large $k$. The two-entry
+problem at large $n$ has no such scaling freedom.
+
+\newpage
+\section{Time intervals exposed by a deletion}
+Let $\bad_v=\{t:\dist{vt}\le1/n\}$ on the real line, periodically, and
+write $\good_R$ for the open set where all speeds in $[n-1]\setminus R$
+have distance strictly above $1/n$. A single subscript $r$ denotes one
+deletion. A configuration with $\LR(V)\le1/n$ must cover $\good_R$ by
+$\bad_u\cup\bad_w$. Each component of $\bad_v$ has length $2/(nv)$.
+For any interval $J$,
+\begin{equation}\label{eq:density}
+ |\bad_v\cap J|\le 2|J|/n+2/(nv).
+\end{equation}
+Indeed, split $J$ into periods of length $1/v$ and a remainder. The
+remainder is contained in one interval of length $1/v$, of which exactly
+$2/(nv)$ is bad. If $\bad_u,\bad_w$ cover a window of length $L$,
+\begin{equation}\label{eq:u}
+ (n-4)L\le 2/u+2/w\le4/u .
+\end{equation}
+This is the two-band density method of~\cite[Section 6]{Z}, with the
+remainder estimated by a full period.
+
+For a deletion $r\ge2$ write $s=n-r$, and let $F$ be the least integer
+at least $s$ coprime to $r$. In particular $s\le F\le s+r-1=n-1$.
+The following windows are also contained in the component formulas
+of~\cite[Section 2]{Z}. We include the argument for the estimates used here.
+
+\begin{lemma}\label{lem:window}
+For any $F\in[s,n-1]$ coprime to $r$, choose $p$ with $Fp\equiv-1\bmod r$. If $2r>n-1$, the interval
+$t=p/r+\delta$, $0<\delta<s/(rnF)$, lies in $\good_r$.
+If $2r\le n-1$, the same holds for
+$1/(2rn)<\delta<s/(rnF)$ whenever the endpoints are in that order.
+For the least eligible $F$ the latter interval has length at least $1/(6rn)$.
+\end{lemma}
+\begin{proof}
+Always $\delta<1/(rn)$. If $ip\not\equiv0,-1\bmod r$, the fractional
+part of $ip/r$ is between $1/r$ and $1-2/r$, and $0<i\delta<1/r$.
+If $ip\equiv-1\bmod r$, then $i\equiv F\bmod r$. Since $F\ge n-r$,
+the largest such $i\le n-1$ is $F$. Thus
+$i\delta<(n-r)/(rn)=1/r-1/n$. In either case $\dist{it}>1/n$.
+Any remaining multiple $i=kr$ has $k\ge2$ and occurs only in the second
+case, where $1/n<kr\delta<1/r\le1/2$.
+
+For the length estimate take the least eligible $F$. The distance from any integer to the next coprime
+integer, counting distance zero at a unit, is at most $\lfloor r/2\rfloor$.
+For odd $r$ use the unit residues $1,(r-1)/2,(r+1)/2,r-1$.
+For $4\mid r$ use $1,r/2-1,r/2+1,r-1$; for $r\equiv2\bmod4$, $r\ge6$,
+use $1,r/2-2,r/2+2,r-1$. Their cyclic gaps are at most $\lfloor r/2\rfloor+1$;
+$r=2$ is immediate. Consequently $F\le s+r/2\le3s/2$ in the second
+case. The interval length is $(s/F-1/2)/(rn)\ge1/(6rn)$.
+\end{proof}
+
+\newpage
+\section{Why one inserted speed cannot fill both gaps}
+\begin{lemma}\label{lem:one}
+For $n\ge15$ and any integer $v\ge n$, the set $\good_R\setminus\bad_v$
+contains a nonempty open interval.
+\end{lemma}
+\begin{proof}
+It suffices to disprove $\good_R\subseteq\bad_v$. If $1\in R$, use the
+window $(1/(2n),1/n)$. Its length would force $v\le4$.
+
+Suppose some $r\in R$ satisfies $2\le r\le(n-1)/2$. The long window of
+Lemma~\ref{lem:window} would give $v\le12r$. On both sides of $1/r$,
+the points $1/r\pm\delta$ also lie in $\good_r$ throughout
+\[
+ a=\frac1{2rn}<\delta<b=\frac{n-r}{rn(n-1)}.
+\]
+For nonmultiples use $\dist{i/r}\ge1/r$ and $i\delta<(n-r)/(rn)$;
+for surviving multiples use $1/n<i\delta<1/2$. The gap $b-a$ is positive.
+If both intervals are covered, their inner endpoints are covered by
+closedness. After scaling by $v$, these endpoints are only
+$2va=v/(rn)\le12/n<1-2/n$ apart. They must lie in the same closed band
+of radius $1/n$ about an integer. By connectedness both full intervals
+must stay in that band. Their outer endpoints then give $2vb\le2/n$,
+or $v\le r(n-1)/(n-r)<n$.
+
+It remains that $(n-1)/2<r_1<r_2$. At each time $1/r_i$ every retained
+speed is a nonmultiple of $r_i$ and has distance at least $1/r_i>1/n$.
+Hence coverage forces both $r_1\mid v$ and $r_2\mid v$. Around $1/r_1$
+the interval of radius $h=(n-r_1)/(nr_1(n-1))$ is good by the same
+Lipschitz estimate. Since its centre maps to an integer under multiplication
+by $v$, coverage requires $vh\le1/n$. But with $d=r_2-r_1$ we have
+\[
+ v\ \ge\ \frac{r_1r_2}{\gcd(r_1,r_2)}
+ \ \ge\ \frac{r_1r_2}{d}
+ \ >\ \frac{r_1(n-1)}{n-r_1}.
+\]
+The strict inequality follows from
+$r_2(n-r_1)-d(n-1)=r_1(n-r_2)+d>0$. This contradicts $vh\le1/n$.
+\end{proof}
+
+\paragraph{Finite cutoff.}
+The walls of $\bad_i$ have the form $(nk\pm1)/(ni)$. Distinct walls for
+speeds $i,j$ differ by at least $1/(nij)$; walls for the same speed $i$
+differ by at least $1/(ni)$. Thus a nonempty component of $\good_R$
+has length at least $1/[n(n-1)^2]$. Equation~\eqref{eq:u} bounds $u$.
+Lemma~\ref{lem:one} gives a residual window after adding $u$. At most
+one of its two different wall speeds can exceed $n-1$, so its length is
+at least $1/[n(n-1)u]$, also when both walls have speed $u$.
+It must fit in a single band of $\bad_w$. This gives $w\le2(n-1)u$.
+
+\newpage
+\section{A double logarithm for the smaller speed}
+If either removed speed is one, \eqref{eq:u} on $(1/(2n),1/n)$ gives
+$u\le8n/(n-4)$. If a removed speed lies in $[2,(n-1)/2]$, the second
+window of Lemma~\ref{lem:window} gives $u\le24rn/(n-4)=O(n)$. Consider
+two larger removed speeds. Order their offsets as $s_1<s_2$, put
+$r_i=n-s_i$, and let $F_i$ denote the least integer $\ge s_i$ coprime
+to $r_i$. Define $K=\min(F_1/s_1,F_2/s_2)$. The first window of
+Lemma~\ref{lem:window} and \eqref{eq:u} give
+\[
+ u\le \min_i\frac{4nr_i F_i}{(n-4)s_i}
+ \le \frac{4n^2}{n-4}\,K .
+\]
+We show $K\le(1+o(1))\log\log n$. Only sequences with $K\to\infty$
+require attention, and they have $s_i\ge2$. For each prime $p\le K$ take
+the least power $p^a\ge s_i$. Then
+$s_i\le p^a<p s_i\le K s_i\le F_i$. By definition of $F_i$ this power
+shares a factor with $r_i$, so $p\mid r_i$ for \emph{both} $i$.
+Writing $\theta(x)=\sum_{p\le x}\log p$, we obtain
+\begin{equation}\label{eq:primorial}
+ \exp(\theta(K))\mid (s_2-s_1),\qquad s_2>\exp(\theta(K)).
+\end{equation}
+Here the first expression is the integer primorial. Moreover every prime
+in $[s_2,Ks_2)$ divides $r_2$. By the prime number theorem
+$\theta(x)\sim x$, the sum of their logarithms is $(1+o(1))K s_2$ as
+$K\to\infty$. Hence $\log n\ge(1+o(1))K s_2$.
+Taking another logarithm and using~\eqref{eq:primorial} gives
+$\log\log n\ge\theta(K)+\log K+o(1)=(1+o(1))K$. This proves the upper
+estimate of Theorem~\ref{thm:main}.
+
+\paragraph{Construction attaining the order.}
+Specialize the simultaneous-acceleration construction of Goddyn and
+Wong~\cite[Theorem 3.1 and Corollary 3.3]{GW}. For integers $m\ge2$, take
+\[
+ P=\prod_{p\le2m}p,\qquad s=P+2,\qquad
+ Q=\prod_{p\le ms}p,\qquad n=Q+s.
+\]
+Multiply the two speeds $n-2$ and $n-s=Q$ by $m$. Both inserted
+speeds are distinct and at least $n$. The criterion in~\cite{GW} asks
+that every integer in $[d,md)$ share a factor with the speed $n-d$ being
+multiplied. For $d=2$, use $P\mid Q+P=n-2$; for $d=s$, every integer in
+$[s,ms)$ has a prime factor dividing $Q$. Thus the configuration is tight.
+For example, $m=2$ gives $n=30038$ and $(u,w)=(60060,60072)$.
+Since $\log P\sim2m$, $\log Q\sim ms$ and $s=o(Q)$, we get
+$\log\log n\sim 2m$ and $u=mQ\sim mn$. The construction is a quantitative
+specialization of the earlier scheme; the order bound applies also to
+configurations with no assumed multiplicative pairing.
+
+\newpage
+\section{A single logarithm for the larger speed}
+Suppose, seeking a contradiction, there is a sequence with $n\to\infty$
+and $w/(n\log n)\to\infty$. The previous section gives $u=O(n\log\log n)$.
+Every open interval in $\good_R$ disjoint from $\bad_u$ must have length
+at most $2/(nw)$, since it fits in one connected component of $\bad_w$.
+We apply this observation at several numerators $p$ for the same deletion.
+
+\paragraph{A deletion in the lower half.}
+The case $r=1$ is excluded for large $n$ by the bound in Section~4.
+If $2\le r\le(n-1)/2$ along a subsequence, Section~4 gives
+$n\le u\le24rn/(n-4)$. In particular $r$ and $s=n-r$ are both of order
+$n$, and $u/r$ is bounded. Use all primes $F$ in
+$(s,s+\min(r/2,s/10)]$. There are unboundedly many by the prime number
+theorem, as the interval length is bounded below by a fixed multiple
+of $s$. All exceed $r$, are distinct modulo $r$, and are at most $n-1$.
+Each gives a window from Lemma~\ref{lem:window} of length at least
+$(10/11-1/2)/(rn)>2/(nw)$. Thus each window meets $\bad_u$.
+At its centre of reference $p/r$ the Lipschitz bound consequently gives
+\[
+ \dist{up/r}\le 1/n+u/(rn).
+\]
+The least absolute residue $j$ of $up$ modulo $r$ therefore satisfies
+$|j|\le (r+u)/n=O(1)$ and $jF\equiv-u\bmod r$. If $r\nmid u$ then
+$j\ne0$. For each fixed nonzero $j$ at most $\gcd(|j|,r)\le|j|$
+residue classes $F$ solve this congruence, contradicting the number
+of available primes. Hence $u=mr$ with $3\le m=O(1)$, since $2r<n$.
+But throughout each of the same windows, $ut$ has distance
+$mr\delta$ to the nearest integer: $1/n<m/(2n)<mr\delta<m/n<1/2$
+for large $n$. This leaves a whole window for $w$, a contradiction.
+
+\paragraph{Divisibility in the upper half.}
+We may now suppose both deleted speeds exceed $(n-1)/2$. Fix either
+$r$, put $s=n-r$, and set $B=\min(n-1,20s\log n)$. For large $n$,
+$(3B/5,B]$ lies above $s$, and its primes have total log weight
+$(2/5+o(1))B$ by the prime number theorem. Since $B\ge20\log n$
+eventually, this exceeds $\log n+2\log B$ (use $\log B=o(B)$).
+The primes dividing $r$ contribute at most $\log r$. Hence at least
+three distinct primes $F$ in this interval are coprime to $r$. They lie
+in $[s,n-1]$, a set of $r$ successive integers.
+
+For each such $F$ choose $Fp\equiv-1\bmod r$. The one-sided window at
+$p/r$ has length $s/(rnF)\ge1/(20rn\log n)$. If $\dist{up/r}\ge2/r$,
+the initial portion of length
+\[
+ \min\{s/(rnF),\,1/(nu)\}
+\]
+is disjoint from $\bad_u$: the distance at the centre exceeds $1/n$
+by at least $1/n$. Both entries of the minimum exceed $2/(nw)$ for large
+$n$. This contradicts coverage. Thus the least absolute residue of $up$
+is at most one for every chosen $F$. Unless $r\mid u$, this forces
+$F\equiv\pm u\bmod r$ for three distinct residue classes. We conclude
+that both deleted speeds divide $u$.
+
+\newpage
+\paragraph{The two forced divisibilities are incompatible with coverage.}
+Write $r_1<r_2$ and $d=r_2-r_1$. Then
+\[
+ u\ge\frac{r_1r_2}{\gcd(r_1,r_2)}\ge\frac{r_1r_2}{d}.
+\]
+Consequently $s=n-r_1>d\gg n/\log\log n$, and $s\le n/2$.
+The prime number theorem supplies a prime $F$ in $(s,6s/5]$
+which does not divide $r_1$: the log weight of those primes is
+$(1/5+o(1))s>\log n$. In particular $F\le n-1$ for large $n$.
+Lemma~\ref{lem:window} at the corresponding $p/r_1$ yields a free
+interval containing
+\[
+ t=p/r_1+\delta,\qquad
+ \frac{3}{5r_1n}<\delta<\frac{3}{4r_1n},
+\]
+since $s/F\ge5/6$. Now $u=mr_1$ with $2\le m=O(\log\log n)$.
+On this interval $3m/(5n)<u\delta<3m/(4n)$,
+so $1/n<u\delta<1/2$ for large $n$. Thus the interval is disjoint
+from $\bad_u$, and has length $3/(20r_1n)>2/(nw)$.
+This final contradiction proves $w=O(n\log n)$.
+
+\paragraph{Where the two logarithmic scales arise.}
+For the smaller speed, both deletions must have long gaps to the next
+coprime integer. The resulting common divisor forces the offsets far
+apart. For the larger speed, three coprime choices in a short enough
+range give three distinct rational tests. A speed exceeding the claimed
+order would leave the smaller speed responsible for all three at each
+deletion, forcing two divisibilities that the last interval rules out.
+The construction in Section~4 attains $n\log\log n$ for both speeds.
+It leaves open whether the larger speed can grow as fast as $n\log n$.
+
+\newpage
+\section{Exact census with unbounded inserted speeds}
+For each pair of deleted speeds we work on the half circle by symmetry,
+in the coordinate $x=nt$. The walls become $(nk\pm1)/v$. Sweep the
+original speeds and record the open cells on which at most two are bad.
+After deleting $\{r,s\}$, retain cells whose bad speeds form a subset of
+$\{r,s\}$. Dirichlet's pigeonhole argument for $0,t,\ldots,(n-1)t$
+ensures at least one speed is bad. Merge adjacent free cells; the covering
+bands are closed, so checking the interiors suffices.
+
+If $L$ is the largest free length in the $x$ coordinate, test integers
+$n\le u\le\lfloor 4n/((n-4)L)\rfloor$ by~\eqref{eq:u}. Remove the
+closed bands of $u$. If the longest remaining interval has length $D$,
+test $u<w\le\lfloor 2/D\rfloor$. The program explicitly checks that the
+residual is nonempty, including at $8\le n<15$. For each interval $(a,b)$,
+one closed band of $w$ suffices exactly when an integer $j$ satisfies
+$wb-1\le nj\le wa+1$. All decisions use integer arithmetic. A strict
+witness at a wall would persist in an adjacent open interval.
+
+\begin{center}
+\begin{tabular}{rrrrr}
+\toprule $n$&\multicolumn{2}{c}{Deleted}&\multicolumn{2}{c}{Inserted}\\
+\midrule
+8&2&3&11&13\\74&70&72&140&144\\284&280&282&560&564\\
+\bottomrule
+\end{tabular}
+\end{center}
+These are all configurations with $\LR(V)\le1/n$ in $8\le n\le300$.
+In each surviving case $t=1/n$ witnesses equality. The scan treats
+$4\,455\,065$ deletion pairs. A separate implementation with rational
+interval intersections checks all sizes $8$ through $18$ from scratch
+and directly verifies all three survivors. Zhang~\cite[Theorem 6.10]{Z}
+previously covered $8\le n\le140$ with $w\le8n$; the third row was
+already identified in~\cite[Example 5.2]{Z}. The additional information
+here is the exhaustive range in $n$ and the absence of a prescribed speed
+ceiling. A finite census does not establish the classification for all $n$.
+
+\paragraph{Reproducibility and status.}
+The supplement includes the C++17 enumeration, per-size counts, and
+the Python rational cross-check. This draft and the software were
+prepared using OpenAI Codex. Independent mathematical review and
+references to earlier equivalent bounds are welcome.
+
+\begin{thebibliography}{9}\small\raggedright
+\bibitem{GW} L. Goddyn and E. B. Wong, Tight instances of the lonely runner,
+\textit{Integers} \textbf{6} (2006), A38.
+\href{https://www.sfu.ca/~goddyn/Papers/063tight_lonely_runner.pdf}{Author's copy}.
+\bibitem{Z} Y. Zhang, Tight instances of the Lonely Runner Conjecture:
+one-entry modifications and the growth of speeds, arXiv:2608.13599v3 (2026).
+\href{https://arxiv.org/html/2608.13599v3}{Version 3, Sections 2, 5, 6 and 8}.
+\end{thebibliography}
+\end{document}
