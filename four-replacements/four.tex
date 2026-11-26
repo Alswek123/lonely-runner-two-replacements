@@ -1,0 +1,51 @@
+\section{Four replacements at explicit sizes}
+For $k=4$, write $H_1$ for the count in \eqref{mid}, and $H_2$ for that in \eqref{outer}. A possible deletion must have $(n-36)H_1\le56r$. An upper deletion with $s\le B$ must have a multiple within budget $ms\le n/2$ if $(n-28)H_2>40n$. The distinction between $2B$ and $n/2$ can only weaken this last necessary test.
+
+\paragraph{The infinite tail $n\ge12000$.}
+Let $P_j$ denote the largest primorial $\le n$, and $\rho=\phi(P_j)/P_j$. Every $r<n$ has $\phi(r)/r\ge\rho$ and $2^{\omega(r)}\le 2^j$. Uniformly in this tail,
+\[
+ \rho(n-36)>56,\qquad \rho n/24-2^j>57,\qquad \rho n/8-2^j>41 .
+\]
+For $j=5$ insert $n=12000$ and $\rho=480/2310$. For $j=6$ insert $n=P_6=30030$ and $\rho=5760/30030$. Thereafter the lower bound $P_j\rho$ increases by a factor $p_{j+1}-1>2$ per step while $2^j$ doubles. These inequalities also give the first bound at larger $j$. If $s\ge n/8$, either $I$ contains a full residue system or $|I|\ge n/24$. In the first case $(n-36)H_1>56r$, and in the second $H_1>57>56n/(n-36)$. Thus $s<n/8$, and $H_2>41>40n/(n-28)$ forces a separate multiple within budget for each deletion. The earlier matching and converse complete the tail.
+
+\paragraph{The finite reduction.}
+For $9\le n<12000$ the file \texttt{reduce.cpp} counts units by signed squarefree divisors. At $r=1$ use $n\le24$ from the exposed interval. For $r\ge2$ discard a deletion which violates the middle inequality; mark an upper one as forced if the outer inequality supplies its budgeted multiple. An optimization for $n\ge1000$ uses $H_1<60$ for a possible deletion. For $D=\lfloor(60+2^{\omega(r)})r/\phi(r)\rfloor+1$, if $r\ge D$ and $s\ge3D$ then $I$ contains $D$ consecutive integers and too many units. If there are fewer than four possible deletions, or all are forced, the size is settled. This leaves 2802 sizes, all at most 3122.
+
+To sharpen this test, take any list of primitive centres with a common exposed $x$-interval $(l/d,h/d)$. If four speeds cover it at all the centres, one speed covers at least one fourth of the total length counted with multiplicity. In the time variable the individual interval length is $(h-l)/(dnr)$. Period division therefore puts the qualifying speed in the finite range
+\begin{equation}\label{cap}
+ n\le v\le\left\lfloor {8nrd\over(n-8)(h-l)}\right\rfloor .
+\end{equation}
+For each candidate the exact covered length, in units of $1/(vd)$ in the $x$ coordinate, is the intersection length of
+\[
+ [nd(vp\bmod r)+vl,\ nd(vp\bmod r)+vh]
+ \quad\text{with}\quad\bigcup_{j\in\mathbb Z}[jnrd-rd,jnrd+rd].
+\]
+Sum these integer lengths and multiply by four to compare with $Hv(h-l)$. At a centre met by a nonmultiple one necessarily has $v\equiv jF\bmod r$, $1\le j\le\lfloor(rd+v h)/(nd)\rfloor$. Thus testing only residues occurring for at least a quarter of the centres (overcounting repeated residues is safe) is an optional acceleration. A window deliberately skipped by the code contributes no exclusion.
+
+In \texttt{refine.cpp}, for $n\ge75$ first discard a deletion if any tested interval bundle has no qualifying speed. Then, at an upper deletion, repeat on $s/(2B)<x<s/B$ with all budgeted multiples forbidden. If this leaves no speed, a budgeted multiple is forced. Keep at most the first 64 units producing a common window. The exact cuts, rational endpoints and one-sided skips appear in the source. This reduces the unresolved set to 169 sizes, the last being 254.
+
+For $43\le n\le254$ use additional necessary rows of candidate speeds. For an individual exposed interval or a common bundle, its row lists speeds covering at least a quarter of its length or total length, respectively. Every solution meets every retained row. A forced deletion additionally requires a multiple within budget; an upper deletion always requires a multiple by testing $t=1/r$. The finite universe for the window rows stops at $\min(80n,80000)$; any interval requiring a larger bound by \eqref{cap} is omitted in its entirety. Divisibility rows may use one extra symbol representing all larger speeds, which relaxes the test. To seek a possible exception, mark one deletion that is lower-half or lacks a budgeted multiple. Forbid its budgeted multiples in the latter case. Enumerate choices for three other deletions, discarding a prefix when its rows cannot be hit with four allowed speeds. This is an ordinary finite hitting-set test, implemented in \texttt{screen.cpp}. At the 135 eligible sizes above 42 it leaves 1555 marked quadruples, or 1284 distinct unordered sets after forgetting the mark, all at $n\le74$.
+
+\paragraph{Covering the remaining gaps exactly.}
+For every $9\le n\le42$ we check all $\sum_{n=9}^{42}\binom{n-1}{4}=850612$ deletion sets before any filtering. For the 1284 survivors above, we also check all inserted speeds, dropping the mark. In scaled time $z=nt$ the bad bands are $[(nj-1)/v,(nj+1)/v]$. Sweep their endpoints for the baseline over $[0,n/2]$; reflection supplies the other half. Record which baseline speeds are bad on each open cell. A cell needs coverage if all its bad speeds were deleted. Since the bands are closed, covering the open cells covers their limits. Subtract the bands of each subsequently selected speed.
+
+If $u$ insertions remain, choose a longest uncovered interval of scaled length $L$. A completing speed must cover at least $L/u$ of it and hence satisfy $v\le\lfloor2un/((n-2u)L)\rfloor$ when $n>2u$. The final speed must cover the entire connected interval and satisfies $v\le\lfloor2/L\rfloor$. If every baseline multiple of $q<n$ was removed, evaluating at $1/q$ also requires some inserted multiple of $q$. At the last step take the lcm of the outstanding requirements. The code in \texttt{cover.cpp} and \texttt{circle.hpp} uses exact endpoints throughout; it stops on empty residuals before the last step or on an exhausted arithmetic guard. Neither stop occurred. The sole covering for $9\le n\le42$ was $2[8]$ at $n=9$; no candidate above 42 in this final check covered all gaps. The dilation is tight. This establishes the structural assertion at $n\ge9$.
+
+\paragraph{First four-fold acceleration.}
+Put $N=148431434$. Every offset in \eqref{test} has $2\le s\le n/2$: otherwise it fails at 1 or on a complete residue system modulo $n-s$. The necessary modulus
+\[
+ d_s=\prod_{\substack{p\ {\rm prime}\\s\le p^j<2s\ \text{for some }j\ge1}}p
+ \qquad\text{satisfies}\qquad n\equiv s\bmod d_s .
+\]
+For $64\le s\le N/2$ the certificate partitions this range into consecutive blocks $[l,h]$ with $h=\min(\lfloor5l/4\rfloor,\lfloor N/2\rfloor)$. All primes in $[h,2l)$ divide every $d_s$ in the block. Trial division supplies a product exceeding $N$ in each. For $2\le s<64$ solve the four simultaneous congruences for every four offsets by generalized CRT. The least possible size is $N$ and the only eligible offsets there are $2,4,8,14$. Direct gcd checks verify all four doublings. Their first coprime integers in increasing order from $s$ are $5,9,17,29$, so no multiplier larger than two works. The CRT minimum was already used in the earlier speed-coefficient computation. The classification gives its minimality among arbitrary four-entry modifications above the small dilation, as claimed.
+
+\paragraph{Smaller sizes.}
+For $n<5$ four changes are impossible. At $n=5$ all solutions are $d[4]$ or $d\{1,3,4,7\}$ with $d\ge5$. At $n=6$ the solutions are $d[5]$ with $3\le d\le5$ and $d\{1,3,4,5,9\}$ with $2\le d\le5$. These follow from the known classification of at most five moving speeds~\cite[Sec.~1.2]{Z}, by counting the retained entries. At $n=7,8$ fixing the \emph{smallest} new speed to each value from $n$ to 256 leaves $u=3$ and again $n>2u$. Thus the same exhaustive branch bounds cover the other three speeds without an external cutoff. Exactly the three configurations stated in Section~1 survive; each comes from a tight configuration by dilation.
+
+There is also a relative bound in the two unresolved cases. Write the four new speeds as $M=v_1<v_2<v_3<v_4$, with $M\ge257$. Some interval in ordinary time on which all retained speeds are good has length at least $\lambda=2/21$ for $n=7$ and $\lambda=1/14$ for $n=8$. To check this, sort the endpoints $(nj\pm1)/(nv)$ of the retained bands in $[0,1]$, test their successive midpoints, and take the largest good gap for each of the 15 or 35 retained sets. After inserting the first $j$ speeds, the uncovered length on such an interval of length $\lambda$ is at least $\lambda(1-2j/n)-2j/(nM)$. It is split among at most $\lambda\sum_{i\le j}v_i+2j+1$ gaps, by counting the band centres within $1/(nv_i)$ of the interval. Use the longest gap and the $u=4-j$ remaining speeds. If $v_i\le A_i M$ and $A_1=1$, we can take
+\[
+ A_{j+1}=c_u\,\frac{\sum_{i\le j}A_i+(2j+1)/(257\lambda)}
+ {n-2j-2j/(257\lambda)},\qquad
+ c_1=2,\quad c_u=2un/(n-2u)\quad(u=2,3).
+\]
+The denominators are positive. The smallest remaining speed is at most the bound on a speed covering a $1/u$ share. Direct rational substitution gives $A_4<123$ at $n=7$ and $A_4<23$ at $n=8$. Thus any further example at these sizes has respectively $v_4<123M$ or $v_4<23M$.

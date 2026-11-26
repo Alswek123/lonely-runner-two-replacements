@@ -1,0 +1,97 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{hidelinks,pdftitle={A gap in the number of changes to a tight lonely runner set}}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newcommand{\LR}{\operatorname{LR}}
+\newcommand{\dist}[1]{\lVert#1\rVert}
+\newcommand{\GW}{\mathrm{GW}}
+\setlength{\emergencystretch}{2em}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries A gap in the number of changes\\[2pt]to a tight lonely runner set\par}
+\medskip {\small Research draft \quad 26 November 2026}
+\end{center}
+\begin{abstract}
+We consider replacing $k$ entries of the consecutive speed set by distinct integers of arbitrary size. For sufficiently large $n$, averaging over primitive rational times forces a small multiple for each deletion whenever $k\le c n/\log\log n$ and the result is tight. A previous arithmetic converse then gives the simultaneous Goddyn--Wong gcd tests. Consequently a tight modification in this range has at most $(1/\log2+o(1))\log\log n$ changes. A separate exact calculation classifies four-entry modifications for every $n\ge9$. Above the dilation at $n=9$, the first tight example has $n=148431434$ and doubles four uniquely determined speeds.
+\end{abstract}
+\section{Results}
+For $V$ a set of $n-1$ distinct positive integer speeds let
+\[
+ \LR(V)=\max_{t\in\mathbb R/\mathbb Z}\min_{v\in V}\dist{vt},
+ \qquad \dist{x}=\min_{j\in\mathbb Z}|x-j|.
+\]
+Tight means $\LR(V)=1/n$. Delete $k$ entries $r=n-s$ from $[n-1]=\{1,\ldots,n-1\}$, and insert $k$ distinct integers $v\ge n$. A pairing assigns a separate inserted multiple $v=m_s(n-s)$ to each deletion. Its Goddyn--Wong test is
+\begin{equation}\label{test}
+ \gcd(F,n-s)>1\qquad (F=s,s+1,\ldots,m_s s-1).
+\end{equation}
+Goddyn and Wong prove simultaneous sufficiency and ask about a converse with a bound on the number of changes~\cite[Sec.~3]{GW}. Zhang asks about the structure and speed bounds for arbitrary multi-entry changes~\cite[Questions 8.2--8.3]{Z}.
+\begin{thm}\label{gap}
+There is an absolute $c>0$ such that, for all sufficiently large $n$ and $1\le k\le c n/\log\log n$, every modification with $\LR(V)\le1/n$ has a unique divisible pairing and satisfies every test \eqref{test}. Conversely the tests imply tightness. Throughout this range,
+\[
+ k\le(1/\log2+o(1))\log\log n
+\]
+for tight configurations. In particular a non-Goddyn--Wong tight modification at sufficiently large $n$ must change more than $c n/\log\log n$ entries.
+\end{thm}
+The earlier range in the companion draft~\cite[Cor.~2]{C} was $k\le c(n/\log n)^{1/3}$. Our proof of the pairing below is independent of that argument. We use only the following arithmetic result of that draft: for a paired input with $2\max_s m_s s\le n$, the inequality $\LR(V)\le1/n$ forces \eqref{test} at every deletion. This dependency is part of both classification statements.
+\begin{thm}\label{four}
+For exactly four replacements, all tight configurations at $n\ge10$ are precisely the simultaneous accelerations satisfying \eqref{test}. None occurs at $10\le n<148431434$. At $n=148431434$ the unique configuration doubles $n-2,n-4,n-8,n-14$. At $n=9$ the only tight configuration is $2[8]$.
+\end{thm}
+Here $dA=\{da:a\in A\}$. At $n=7,8$ we also give an exhaustive result whenever the smallest of the four inserted speeds is $\le256$, with no assumption on the other three. At $n=7$ it is $3[6]$. At $n=8$ the possibilities are $2[7]$ and $2\{1,2,3,4,5,7,12\}$. The two sizes with all four inserted speeds above 256 remain unresolved in this draft.
+
+\section{Counting coverage across many centres}
+Fix $r=n-s\ge2$. For each integer $F\in[s,n-1]$ coprime to $r$, take $p$ modulo $r$ satisfying $Fp\equiv-1\bmod r$. The $p$ are distinct. At
+\[
+ t=p/r+x/(nr),\qquad x<s/F ,
+\]
+all baseline speeds except $r$ are at distance $>1/n$ if $x>0$ for $2r\ge n$, or $x>1/2$ otherwise. Indeed a nonzero residue other than $-1$ moves forward by $<1/r$. A speed in residue $-1$ is at most $F$ since $F+r\ge n$, and moves by $<1/r-1/n$. Other multiples of $r$ occur only when $2r<n$, and are then strictly outside the bad band for $x>1/2$. These are the single-deletion windows in~\cite[Sec.~2]{Z}. Inserted speeds must cover every one of them by their closed bad bands $\dist{vt}\le1/n$.
+
+Use a common $x$-interval $J=(\alpha,\beta)$ of length $L$, valid at $H$ of the centres. Let $M_v$ denote the sum over those centres of the fractions of $J$ covered by the speed $v$. Necessarily $H\le\sum_{v\ {\rm inserted}}M_v$. Write $g=(v,r),q=r/g,h=v/g$. If $q>1$ and any window is met, then
+\begin{equation}\label{reach}
+ h\beta\ge n-q .
+\end{equation}
+Indeed the starting point $vp/r$ is at least $1/q>1/n$ from the next integer. Its positive displacement is $hx/(nq)$.
+\begin{lem}\label{average}
+For every inserted speed,
+\[
+ M_v\le {2r\over n}+{2r\over hL}.
+\]
+If $g=1$ then also $M_v\le2$. If $q=1$ then all selected centres have the same covered fraction, which is at most $2/n+2/(hL)$.
+\end{lem}
+\begin{proof}
+Enlarge the sum to all $p\bmod r$. At fixed $x$ its integrand is $g$ times the number of $j\bmod q$ with $\dist{(j+hx/n)/q}\le1/n$. The sum has period $n/h$ in $x$ because a shift cycles the residues. Its mean over that period is $2r/n$: the $q$ translated unit intervals for $j+hx/n$ cover one full $q$-period of the band indicator. The integral on a remainder of length less than $n/h$ is at most its full-period integral $2r/h$. Divide by $L$. When $g=1$ the band contains at most two of the $r$ equally spaced points, since $2r/n<2$. For $q=1$, apply the single-period estimate to the common function $\mathbf1_{\dist{hx/n}\le1/n}$, of period $n/h$.
+\end{proof}
+
+\paragraph{Locating the deletions.}
+Count the units $F$ in $I=[s,\min(n-1,\lfloor4s/3\rfloor)]$, and use $J=(1/2,3/4)$. For a nonmultiple of $r$, either $g=1$ and $h=v\ge n$, or $g\ge2$ and~\eqref{reach} implies $h\ge2n/3$ whenever any window is met. Lemma~\ref{average} gives $M_v\le14r/n$. For a multiple $v=mr$ we have $m\ge2$. In this interval $mx>1$, so contact requires $3m/4\ge n-1$. If $n\ge7$ its covered fraction is at most $2/n+6/(n-1)\le9/n$. Hence
+\begin{equation}\label{mid}
+ (1-9k/n)H\le14kr/n .
+\end{equation}
+
+\paragraph{Forcing small multiples.}
+Assume $2r\ge n$, put $B=\lfloor n/4\rfloor\ge s$, count the units in $[s,B]$, and set $\beta=s/B$. Use the outer half $J=(\beta/2,\beta)$ of the common window. For a nonmultiple with $g=1$, Lemma~\ref{average} bounds $M_v$ by two. At $g\ge2$, contact requires $h\beta\ge n/2$, so $M_v\le10r/n\le10$. A multiple $mr$ with $m\beta>2$ has $mx>1$ throughout the window. To meet it one needs $m\beta\ge n-1$, so its covered fraction is at most $2/n+4/(m\beta)\le7/n$ for $n\ge7$. Consequently, in the absence of a multiple with $ms\le2B$,
+\begin{equation}\label{outer}
+ (1-7k/n)H\le10k .
+\end{equation}
+The change from the whole window to its outer half removes the factor $k$ from the size bound on a required multiplier.
+
+\section{A gap in the possible numbers of changes}
+Put $\rho_n=\min_{1\le r<n}\phi(r)/r$. The classical totient estimate gives $\rho_n\gg1/\log\log n$~\cite[Thm.~15]{RS}. We prove the result for $k\le n\rho_n/4096$ and sufficiently large $n$. In a block of $d$ consecutive integers there are at least $d\phi(r)/r-2^{\omega(r)}$ units modulo $r$, by inclusion--exclusion. Uniformly $2^{\omega(r)}\le 2\sqrt n=o(n\rho_n)$ by counting divisors in pairs.
+
+If $r=1$ is deleted the interval $(1/(2n),1/n)$ is exposed. On any time interval of length $\lambda$ one speed $v$ covers at most $2\lambda/n+2/(nv)$, by period division. Using $v\ge n$ gives $n\le6k$, impossible. Now suppose $s\ge n/8$ at a deletion $r\ge2$. If $r\le s/3$, the set $I$ contains all $r$ residue classes, hence $H\ge r\rho_n$. Otherwise $r>n/24$ and $I$ has at least $n/24$ integer points: it contains $\min(r,\lfloor s/3\rfloor+1)$ points. Hence $H\ge r\rho_n/48$ for sufficiently large $n$. In both cases \eqref{mid} gives $H\le28kr/n\le28r\rho_n/4096$, a contradiction.
+
+All offsets are now $s<n/8$. The block $[s,B]$ has at least $n/8$ entries and consequently $H\ge n\rho_n/16$. This contradicts \eqref{outer} unless some inserted multiple $m_s(n-s)$ satisfies $m_s s\le n/2$. The choices are distinct: for $a<b$ a multiple shared by $n-a,n-b$ would require a multiplier at $b$ at least $(n-a)/(b-a)>n/(2b)$. Thus the $k$ choices exhaust the inserted speeds. A speed assigned at $b$ cannot also serve any smaller offset by the same inequality. Any other bijective divisible matching would give a permutation sending each index to itself or to a larger one, hence is identical. The paired converse~\cite[Thm.~1]{C} gives all gcd tests.
+
+For completeness these tests force $s=O(\log n)$, since every prime in $[s,2s)$ divides $n-s$, and their product has logarithm $(1+o(1))s$ by the prime number theorem. For offsets $a<b$ a prime $p\in[b,2a)$ would divide both $n-a,n-b$, hence would divide $b-a<p$. Thus $b$ exceeds the largest prime below $2a$ whenever $b<2a$. For every fixed $\epsilon>0$ successive sufficiently large offsets increase by a factor at least $2-\epsilon$. There are at most $O_\epsilon(1)+\log(O(\log n))/\log(2-\epsilon)$ offsets. Let $\epsilon\downarrow0$. This proves Theorem~\ref{gap}.
+
+\input{four}
+\paragraph{Status.} Computer-assisted research draft prepared with OpenAI Codex. The finite tests are reproducible; the analytical arguments and the cited companion converse await independent review.
+\begin{thebibliography}{9}\small\raggedright
+\bibitem{C} \emph{A converse for sparse tight lonely runner modifications}, companion research draft, 26 November 2026. Included with the verification files.
+\bibitem{GW} L. Goddyn and E. B. Wong, Tight instances of the lonely runner, \emph{Integers} \textbf{6} (2006), A38. \href{https://www.sfu.ca/~goddyn/Papers/063tight_lonely_runner.pdf}{Author's copy}.
+\bibitem{RS} J. B. Rosser and L. Schoenfeld, Approximate formulas for some functions of prime numbers, \emph{Illinois J. Math.} \textbf{6} (1962), 64--94. \href{https://doi.org/10.1215/ijm/1255631807}{Published paper}.
+\bibitem{Z} Y. Zhang, \emph{Tight instances of the Lonely Runner Conjecture: one-entry modifications and the growth of speeds}, \href{https://arxiv.org/html/2608.13599v3}{arXiv:2608.13599v3}.
+\end{thebibliography}
+\end{document}

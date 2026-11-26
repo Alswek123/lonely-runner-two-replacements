@@ -1,0 +1,235 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{hidelinks,pdftitle={Equality in the Lonely Runner bound for six and seven integer speeds}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\LR}{\operatorname{LR}}
+\newcommand{\nn}[1]{\lVert #1\rVert}
+\setlength{\emergencystretch}{2em}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Equality in the Lonely Runner bound\\[3pt]for six and seven integer speeds\par}
+\medskip
+Research draft prepared with OpenAI Codex \quad 26 November 2026
+\end{center}
+\begin{abstract}
+For six distinct positive integer speeds we give a computer-assisted proof that
+only dilations of the consecutive speeds attain maximum loneliness $1/7$.
+For seven speeds the corresponding equality at $1/8$ has three primitive
+solutions. All four examples were known. The issue is completeness at
+arbitrarily large speeds. The proof uses lower-dimensional lonely-runner
+bounds, a simultaneous approximation, and explicit prime-modulus cover lists.
+A short representative of a modular cover either yields a strictly better
+time or determines the original speed ratios. Two enumerators are supplied.
+\end{abstract}
+
+\section{Equality and the four-replacement question}
+Let $V$ consist of $n-1$ distinct positive integers, with a stationary runner
+as reference. Write $\nn{x}=\min_{m\in\mathbb Z}|x-m|$,
+$[j]=\{1,\ldots,j\}$, and
+\[
+  \LR(V)=\max_{t\in\mathbb R}\min_{v\in V}\nn{tv}.
+\]
+An integer dilation preserves $\LR$, since $dt$ traverses the whole circle.
+Call a set primitive if its elements have greatest common divisor one.
+\begin{theorem}\label{main}
+For $n=7,8$, the complete list of primitive $V$ with $\LR(V)\le 1/n$ is
+\[
+\begin{array}{c|l}
+7 &[6]\\
+8 &[7],\quad \{1,2,3,4,5,7,12\},\quad \{1,4,5,6,7,11,13\}.
+\end{array}
+\]
+Every listed set attains equality. Every other primitive set admits a time
+at which all distances are strictly greater than $1/n$.
+\end{theorem}
+Goddyn and Wong discuss uniqueness for $n=7$ and list the two exceptional
+examples for $n=8$ \cite{GW}. Zhang describes the earlier complete
+classifications through five speeds and attributes the example containing
+$12$ to Wills \cite[Sec.~1.2]{Z}. The prime-divisor argument below follows
+the strategy of Rosenfeld for the ordinary lower bound \cite{R}. For background
+on effective bounds and lower-dimensional subtori see \cite{GK,MSS,JA}.
+
+\begin{corollary}\label{four}
+Delete exactly four elements of $[n-1]$ and insert four distinct integers
+at least $n$. At $n=7$ the only tight result is $3[6]$. At $n=8$ the only
+ones are $2[7]$ and $2\{1,2,3,4,5,7,12\}$.
+\end{corollary}
+Indeed a dilation $dT$ must have exactly $n-5$ entries below $n$.
+At least one such entry exists, so $1\le d\le n-1$; direct counting suffices.
+
+\newpage
+\section{A strict improvement from a nearby lattice point}
+Set $K=n(n-1)/2$. Assume the ordinary lower bound for $n-2$ distinct
+positive integer speeds: some time puts each distance at least $1/(n-1)$.
+For $n=7$ this is the theorem of Bohman, Holzman and Kleitman \cite{BHK},
+and for $n=8$ it is the theorem of Barajas and Serra \cite{BS}.
+It applies to fewer speeds by adjoining positive speeds, and to nonzero
+rational speeds by clearing denominators, taking absolute values and
+removing duplicates.
+
+\begin{lemma}\label{near}
+Let $v$ be the positive integer speed vector. If for some $\tau\in\mathbb R$
+and $a\in\mathbb Z^{n-1}$,
+$\max_i|\tau v_i-a_i|<1/K$, then either $a$ is proportional to $v$
+or $\LR(V)>1/n$.
+\end{lemma}
+\begin{proof}
+In the nonproportional case choose indices $i,j$ whose slopes
+$a_i/v_i<a_j/v_j$ are adjacent among the distinct slopes. The weighted
+average $\lambda=(a_i+a_j)/(v_i+v_j)$ lies strictly between them and equals
+no slope. The rational vector $u=a-\lambda v$ has no zero coordinates,
+and $u_i=-u_j$. It therefore has at most $n-2$ distinct absolute
+coordinates. Choose $s$ so that $\nn{s u_\ell}\ge1/(n-1)$ for every $\ell$.
+Put $\theta=s-m$ for a nearest integer $m$ and set
+$t=-s\lambda+\theta\tau$. Coordinatewise,
+\[
+ tv-su=\theta(\tau v-a)-ma .
+\]
+Modulo integers the displacement has magnitude strictly less than
+$1/(2K)$ (and is zero if $\theta=0$). The distance to the nearest integer
+is $1$-Lipschitz. Thus every $\nn{tv_\ell}$ exceeds
+$1/(n-1)-1/(2K)=1/n$.
+\end{proof}
+
+\begin{lemma}\label{bounded}
+If $v$ is primitive and $\LR(V)\le1/n$, then
+$W=\max_i v_i\le K^{n-2}$.
+\end{lemma}
+\begin{proof}
+Choose a coordinate equal to $W$. For the other $n-2$ coordinates place the
+points $(\{jv_i/W\})_{v_i\ne W}$, $0\le j\le K^{n-2}$, in $K^{n-2}$
+half-open cubes of side $1/K$ partitioning $[0,1)^{n-2}$. Two lie in the
+same cube. Subtracting gives $1\le q\le K^{n-2}$ and integers $a_i$ with
+$|qv_i/W-a_i|<1/K$. Use $a_i=q$ at $W$. Lemma~\ref{near} forces
+$a=(q/W)v$. Primitivity and B\'ezout's identity give $q/W\in\mathbb Z$.
+In particular $W\le q$.
+\end{proof}
+
+\begin{lemma}\label{lift}
+Suppose $\LR(V)\le1/n$ and there is a unit $h\bmod p$ such that the
+absolute least residues of $hv_i\bmod p$, with multiplicity, form a listed
+model $T$ with $\max T<p/K$. Then $V$ is an integer dilation of $T$.
+\end{lemma}
+\begin{proof}
+Let $b_i$ be the signed least residues and $a_i=(hv_i-b_i)/p$.
+With $\tau=h/p$ their error is $|b_i|/p<1/K$. Lemma~\ref{near} gives
+$a=cv$, so $b=(h-pc)v$. The scalar is nonzero. Taking absolute values
+identifies $V$ with a positive dilation of $T$. Since $1\in T$, the dilation
+factor is itself a speed and is an integer.
+\end{proof}
+
+\newpage
+\section{The finite prime certificate}
+For an odd prime $p$ let $|x|_p$ denote the least absolute residue in
+magnitude and let $H=\{1,\ldots,(p-1)/2\}$. Both signs of a speed have
+the same bad times. The band of $b\in H$ is
+\[
+ B(b)=\{j\in H:n|jb|_p\le p\}.
+\]
+If $\LR(V)\le1/n$, the times $j/p$ imply that the speed bands cover $H$.
+Suppose $p$ divides no speed. Multiplying all speeds by the inverse of any
+one speed permutes the time classes up to sign. Folding by sign gives a
+cover $C\subseteq H$ containing $1$ with at most $n-1$ distinct elements.
+Residue collisions are allowed in this reduction.
+
+\medskip\noindent{\bf Finite assertion.}
+For each prime in the following row, every cover containing $1$ of size
+at most $n-1$ has exactly $n-1$ elements, and the complete list consists of
+\begin{equation}\label{list}
+ \big\{\,\{|x/b|_p:x\in T\}:T\text{ in the row of
+ Theorem~\ref{main}},\ b\in T\,\big\}.
+\end{equation}
+Division is in $\mathbb F_p$. The list has six covers at each of the
+16 primes for $n=7$, and 21 covers at each of the 23 primes for $n=8$.
+\begin{center}\small
+\begin{tabular}{c p{0.80\linewidth}}\toprule
+$n$ & Prime denominators \\ \midrule
+7 & 373, 379, 383, 389, 397, 401, 409, 419, 433, 439, 443, 449, 463, 467, 479, 491.\\[3pt]
+8 & 367, 379, 383, 389, 397, 419, 431, 463, 487, 499, 503, 509, 521, 541, 547, 557, 563, 569, 587, 593, 599, 601, 607.\\
+\bottomrule\end{tabular}
+\end{center}
+Only these primes are required. For example, the assertion fails for
+$n=7$, $p=367$, a case retained as a negative control.
+
+\begin{proof}[Proof of Theorem~\ref{main} from the finite assertion]
+Assume $V$ is primitive and $\LR(V)\le1/n$. Lemma~\ref{bounded} gives
+$\prod v_i\le(K^{n-2})^{n-1}$. The product of the distinct primes in
+each row exceeds this bound. At $n=7$ the bound is below $10^{40}$
+and the product exceeds $10^{42}$. At $n=8$ the bound is below $10^{61}$
+and the product exceeds $8\cdot10^{61}$. Thus some row prime divides
+no speed. The resulting normalized cover is one in \eqref{list}. Its
+$n-1$ distinct elements preclude collisions. Undoing the normalization
+and multiplying by the listed $b$ gives a unit $h$ as in
+Lemma~\ref{lift}. All row primes exceed $K\max T$ (at most 126 and 364
+respectively). The lemma and primitivity give $V=T$.
+
+For the converse we check $\LR(T)$ exactly. The lower envelope
+$\min_{v\in T}\nn{vt}$ is piecewise linear with nonzero slopes on open
+linear pieces. At a maximum a rising and a falling segment meet,
+possibly belonging to the same speed. If their speeds are $v,w$, then
+$(v+w)t$ is integral. Checking every $t=j/(v+w)$ in $[0,1)$ thus gives
+the exact maximum. For the four models in theorem order these are
+$1/7,1/8,1/8,1/8$; in each case $t=1/n$ attains the value.
+\end{proof}
+
+\newpage
+\section{Replaying the enumeration}
+Both enumerators construct the bands, fix speed class $1$, and print the
+actual sorted speed classes of each cover they find. Neither program is
+given the expected templates. A shorter cover would be reported and fail
+the comparison. Conversely, if no shorter cover exists, every cover of
+the required size is inclusion-minimal and must be enumerated.
+
+\paragraph{Average-coverage search.}
+If $G$ times remain and $u$ slots are available, at least one class in any
+completion covers at least $G/u$ residual times. The first enumerator
+branches on every such class. After a branch, it excludes its class from
+later siblings only. Every completion has a first qualifying member in
+this loop and follows that branch. At zero residual times the program
+emits the partial cover immediately; if no slots remain with uncovered
+times it returns. This proves completeness for minimal covers by induction.
+
+\paragraph{Ranked search with an incidence check.}
+The second enumerator constructs the time and speed lists using modular
+inversion. At each node it ranks the candidates by decreasing number of
+residual times hit. A branch chooses the first remaining member of the
+completion in this order. If the next $u$ largest counts sum to less than
+$G$, every completion in that suffix is impossible. With two slots left,
+it chooses one uncovered time and branches on a speed containing it.
+The possible partners are the intersection of the speed lists of all
+still uncovered times. A class with zero hits cannot be needed by a
+minimal cover. The two searches use different final tests and state
+representations.
+
+\paragraph{Reproduction and scope.}
+Compile either C++17 source in the accompanying directory and pass its
+executable to \texttt{verify.py}. The Python driver compares the full rows
+with \eqref{list}, independently checks coverage at every nonzero residue,
+checks the prime products using integers, and computes the continuous
+maxima using fractions. See the repository for commands, both sources and
+a replay transcript. This computer-assisted draft awaits external review.
+The general equality classification at arbitrary dimension is outside its
+scope.
+
+\begin{thebibliography}{9}\small\raggedright
+\bibitem{BHK} T. Bohman, R. Holzman and D. Kleitman,
+\href{https://doi.org/10.37236/1602}{Six lonely runners}, EJC, 2001.
+\bibitem{BS} J. Barajas and O. Serra,
+\href{https://arxiv.org/abs/0710.4495}{The lonely runner with seven runners}, EJC, 2008.
+\bibitem{GW} L. Goddyn and E. B. Wong,
+\href{https://zenodo.org/records/8275490}{Tight instances of the lonely runner}, Integers 6, A38, 2006.
+\bibitem{GK} V. Giri and N. Kravitz,
+\href{https://doi.org/10.1017/S0305004125101497}{The structure of Lonely Runner spectra}, 2026.
+\bibitem{MSS} R. Malikiosis, F. Santos and M. Schymura,
+\href{https://doi.org/10.1017/fms.2025.10107}{Linearly-exponential checking is enough for the Lonely Runner Conjecture and some of its variants}, 2025.
+\bibitem{R} M. Rosenfeld,
+\href{https://arxiv.org/abs/2509.14111}{The lonely runner conjecture holds for eight runners}, 2025.
+\bibitem{JA} J. Allikvere,
+\href{https://arxiv.org/abs/2609.02604}{Fourteen and fifteen lonely runners}, 2026.
+\bibitem{Z} Y. Zhang,
+\href{https://arxiv.org/abs/2608.13599}{Tight instances of the Lonely Runner Conjecture: one-entry modifications and the growth of speeds}, v3, 2026.
+\end{thebibliography}
+\end{document}

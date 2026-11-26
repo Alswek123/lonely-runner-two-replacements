@@ -1,0 +1,7 @@
+paired arithmetic cases 2506
+independent exact average samples 878
+first four-fold acceleration (148431434, (2, 4, 8, 14))
+joint-window deletion counts reproduced
+marked-deletion screening reproduced
+all exact per-size coverage rows reproduced
+all selected checks passed
